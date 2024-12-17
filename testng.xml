@@ -3,6 +3,7 @@
     <test name="App collection">
         <classes>
             <class name="io.paysky.qa.App_name.OpenGattahHomepage"/>
+            <class name="io.paysky.qa.App_name.OpenDividedQattah"/>
         </classes>
     </test>
     <listeners>
