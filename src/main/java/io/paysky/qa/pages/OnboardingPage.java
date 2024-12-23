@@ -15,7 +15,7 @@ public class OnboardingPage extends AbstractClass {
     }
     private final By NewQattah = AppiumBy.xpath("(//android.view.View[@content-desc=\"Circle\"])[1]\n");
     public void ClickOnNewQattah() throws Exception{
-        clickOnElement(NewQattah,20);
+        clickOnElement(NewQattah,60);
     }
 /*private final By QattahTypeFull = AppiumBy.xpath("//android.widget.TextView[contains(@text, 'Full Qattah')]");
     public void ClickOnQattahTypeFull() throws Exception{

@@ -1,6 +1,10 @@
 package io.paysky.qa.App_name;
 
 import io.paysky.qa.pages.DividedQattah;
+import io.paysky.qa.pages.PayQattah;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class OpenDividedQattah
 {
@@ -15,5 +19,11 @@ public class OpenDividedQattah
 
         dividedQattah.ClickOnDividedButton();
     }
+
+   /* @org.testng.annotations.Test(priority = 8)
+    public void RestartButton() throws Exception {
+
+        dividedQattah.ClickOnRestarButton();
+    }*/
 
 }

@@ -18,9 +18,16 @@ public class DividedQattah extends AbstractClass
         element.clear();
         element.sendKeys(String.valueOf(randomAmount)); // Convert integer to String
     }
-    private final By DividedButton = AppiumBy.xpath("//android.widget.TextView[@text=\"Divided Qattah\"]\n");
+    private final By DividedButton = AppiumBy.xpath("//android.widget.TextView[@text=\"Divide the Qattah\"]\n");
     public void ClickOnDividedButton() throws Exception{
-        clickOnElement(DividedButton,20);
+        clickOnElement(DividedButton,10);
     }
-
+    private final By CreateButton= AppiumBy.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[4]\n");
+   public void ClickOnCreateButton() throws Exception{
+       clickOnElement(CreateButton,10);
+   }
+   private final By RestartTone=AppiumBy.accessibilityId("Circle");
+   public void ClickOnRestarButton() throws  Exception{
+       clickOnElement(RestartTone,20);
+   }
 }
