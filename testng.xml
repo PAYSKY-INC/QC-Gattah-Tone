@@ -6,6 +6,11 @@
             <class name="io.paysky.qa.App_name.ClickOnStartButton"/>
         </classes>
     </test>
+    <test verbose="2" name="FilterQattah">
+        <classes>
+            <class name="io.paysky.qa.App_name.ClickOnFilterIcon"/>
+        </classes>
+    </test>
     <test verbose="2" name="FilterQattahByDate">
         <classes>
             <class name="io.paysky.qa.App_name.FilterQattahByDate"/>

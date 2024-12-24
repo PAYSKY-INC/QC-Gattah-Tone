@@ -1,16 +1,12 @@
 package io.paysky.qa.pages;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.functions.ExpectedCondition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.*;
 
-public class FilterQattah extends AbstractClass
+public class FilterQattahByDate extends AbstractClass
 {
 
     private final By FilterButton= AppiumBy.xpath("//android.widget.ImageView[@content-desc=\"Circle\"]\n");
