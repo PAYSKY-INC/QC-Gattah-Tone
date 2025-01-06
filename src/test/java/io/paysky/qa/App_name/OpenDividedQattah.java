@@ -1,10 +1,6 @@
 package io.paysky.qa.App_name;
 
 import io.paysky.qa.pages.DividedQattah;
-import io.paysky.qa.pages.PayQattah;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class OpenDividedQattah
 {

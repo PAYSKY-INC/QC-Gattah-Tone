@@ -1,7 +1,6 @@
 package io.paysky.qa.App_name;
 
 import io.paysky.qa.pages.DividedQattah;
-import io.paysky.qa.pages.PayQattah;
 
 public class CreateButtonDividedQattah
 {

@@ -9,10 +9,6 @@ public class OpenGattahHomepage {
     final  void NewQattah() throws  Exception{
         onboardingPage.ClickOnNewQattah();
     }
-    /*@org.testng.annotations.Test(priority = 3)
-final  void QattahTypeFull() throws  Exception{
-        onboardingPage.ClickOnQattahTypeFull();
-}*/
     @org.testng.annotations.Test(priority = 3)
     final  void QattahTypeDivided() throws  Exception{
         onboardingPage.ClickOnQattahTypeDivided();
