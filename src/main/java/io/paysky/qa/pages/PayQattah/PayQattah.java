@@ -1,6 +1,7 @@
-package io.paysky.qa.pages;
+package io.paysky.qa.pages.PayQattah;
 
 import io.appium.java_client.AppiumBy;
+import io.paysky.qa.pages.AbstractClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;

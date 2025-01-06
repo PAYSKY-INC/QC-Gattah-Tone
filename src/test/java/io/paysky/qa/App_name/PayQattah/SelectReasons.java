@@ -1,6 +1,6 @@
-package io.paysky.qa.App_name;
+package io.paysky.qa.App_name.PayQattah;
 
-import io.paysky.qa.pages.ClickOnSelectReasons;
+import io.paysky.qa.pages.PayQattah.ClickOnSelectReasons;
 
 public class SelectReasons
 {

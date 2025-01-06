@@ -4,25 +4,29 @@
     <!-- Step 1: Run OpenPayQattahPage class sequentially -->
     <test verbose="1" name="PayQattah">
         <classes>
-            <class name="io.paysky.qa.App_name.OpenPayQattahPage"/>
+            <class name="io.paysky.qa.App_name.PayQattah.OpenPayQattahPage"/>
         </classes>
     </test>
     <test verbose="2" name="PayQattah_select">
         <classes>
-            <class name="io.paysky.qa.App_name.SelectReasons"/>
+            <class name="io.paysky.qa.App_name.PayQattah.SelectReasons"/>
         </classes>
     </test>
     <test verbose="3" name="PayQattah_Done">
     <classes>
-        <class name="io.paysky.qa.App_name.OpenCheckOutPage"/>
+        <class name="io.paysky.qa.App_name.PayQattah.OpenCheckOutPage"/>
     </classes>
 </test>
     <test verbose="4" name="PayQattah_OTP">
         <classes>
-            <class name="io.paysky.qa.App_name.OpenOTPPage"/>
+            <class name="io.paysky.qa.App_name.PayQattah.OpenOTPPage"/>
         </classes>
     </test>
-
+    <test verbose="4" name="PayQattah_summary">
+        <classes>
+            <class name="io.paysky.qa.App_name.PayQattah.PaymentSummaryPage"/>
+        </classes>
+    </test>
 
 
     <!-- Listeners for Allure -->
