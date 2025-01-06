@@ -1,95 +1,173 @@
 package io.paysky.qa.pages.PayQattah;
-import io.appium.java_client.MobileBy;
-
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import io.paysky.qa.pages.AbstractClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.Duration;
-import java.util.NoSuchElementException;
+public class OTPPage extends AbstractClass {
 
-public class OTPPage extends AbstractClass
-{
-    public void EnterFirstDigit() throws Exception {
+        // Method to tap on the '1' key using coordinates
+        public void tapOnKeyboardKey(int x, int y) {
+            try {
+                if (x >= 0 && y >= 0) {
+                    TouchAction<?> action = new TouchAction<>(driver);
+                    action.tap(PointOption.point(x, y)).perform();
+                    System.out.println("Tapped on '1' key at coordinates: X=" + x + ", Y=" + y);
+                } else {
+                    System.err.println("Invalid coordinates! Please check the pointer location.");
+                }
+            } catch (Exception e) {
+                System.err.println("Error tapping on key '1': " + e.getMessage());
+            }
+        }
+
+        // Method to enter the first digit of the OTP
+        public void EnterFirstDigit() throws Exception {
+            try {
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+                // Locate the OTP input field
+                By otpFieldXPath = By.xpath("(//android.widget.FrameLayout[@resource-id='com.paysky.qattah:id/otpView'])[2]/android.widget.TextView");
+                WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(otpFieldXPath));
+
+                // Wait for 30 seconds before clicking the input field
+                System.out.println("Waiting for 30 seconds before clicking...");
+                Thread.sleep(30);
+
+                // Click to activate the OTP input field
+                firstDigitElement.click();
+                System.out.println("Clicked on OTP field to activate it.");
+
+                // Wait for another 30 seconds after clicking
+                System.out.println("Waiting for 30 seconds after clicking...");
+                Thread.sleep(30);
+
+                // Option 1: Type digit '1' using mobile automation input script
+                ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "1"));
+                System.out.println("Successfully entered digit '1' using native input.");
+
+                // Option 2: Tap on '1' key directly (if it’s part of the on-screen keyboard)
+                // Example coordinates, replace with actual values you captured (e.g., from Appium Inspector)
+                int x = 203; // Replace with actual X coordinate of the '1' key
+                int y = 944; // Replace with actual Y coordinate of the '1' key
+                tapOnKeyboardKey(x, y);
+
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
+                throw new Exception("Failed to enter the digit '1'.", e);
+            }
+        }
+    public void EnterSecondDigit() throws Exception {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-            // Ensure Samsung keyboard is set as the default
-            setDefaultKeyboard();
+            // Locate the OTP input field
+            By otpField2 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[3]/android.widget.TextView\n");
+            WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(otpField2));
 
-            // Locate the TextView element to activate the OTP input field (for first digit)
-            WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(
-                    MobileBy.AndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").instance(2)")
-            ));
+            // Wait for 30 seconds before clicking the input field
+            System.out.println("Waiting for 30 seconds before clicking...");
+            Thread.sleep(30);
 
-            // Click to activate the OTP field and open the keyboard
+            // Click to activate the OTP input field
             firstDigitElement.click();
+            System.out.println("Clicked on OTP field to activate it.");
 
-            // Wait until the keyboard is displayed (if necessary)
-            wait.until(ExpectedConditions.presenceOfElementLocated(
-                    MobileBy.AndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\")")
-            ));
+            // Wait for another 30 seconds after clicking
+            System.out.println("Waiting for 30 seconds after clicking...");
+            Thread.sleep(30);
 
-            // Optionally, if we need to type '1' directly, we can do so (use sendKeys for a direct keyboard entry)
-            firstDigitElement.sendKeys("1");
+            // Option 1: Type digit '1' using mobile automation input script
+            ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "2"));
+            System.out.println("Successfully entered digit '2' using native input.");
 
-            System.out.println("Entered digit '1' using the custom or system keyboard.");
-
-            // Optional: If we are using a custom keypad (like the one with buttons), you can handle this.
-            // Locate and click the keypad button for '1' if keyboard wasn't triggered
-            try {
-                WebElement keypadButton = driver.findElement(
-                        MobileBy.AndroidUIAutomator("new UiSelector().text(\"1\")")
-                );
-                keypadButton.click();
-                System.out.println("Entered digit '1' using the custom keypad.");
-            } catch (NoSuchElementException e) {
-                System.out.println("Custom keypad not found, used system keyboard instead.");
-            }
+            // Option 2: Tap on '1' key directly (if it’s part of the on-screen keyboard)
+            // Example coordinates, replace with actual values you captured (e.g., from Appium Inspector)
+            int x = 314; // Replace with actual X coordinate of the '1' key
+            int y = 980; // Replace with actual Y coordinate of the '1' key
+            tapOnKeyboardKey(x, y);
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
-            throw new Exception("Failed to interact with the custom keypad or input field.", e);
+            throw new Exception("Failed to enter the digit '2'.", e);
         }
     }
-
-
-    public void setDefaultKeyboard() throws InterruptedException {
+    public void EnterThirdDigit() throws Exception {
         try {
-            // Check the current input method (keyboard)
-            String currentIme = getCurrentIme();
-            if (!currentIme.equals("com.samsung.android.inputmethod/.LatinIME")) {
-                System.out.println("Changing the default keyboard to Samsung...");
-                // Set Samsung keyboard as the default IME
-                Runtime.getRuntime().exec("adb shell ime set com.samsung.android.inputmethod/.LatinIME");
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-                // Allow some time for the setting to take effect
-                Thread.sleep(2000);  // Adjust the sleep duration if needed
-                System.out.println("Samsung keyboard set as default.");
-            } else {
-                System.out.println("Samsung keyboard is already the default.");
-            }
-        } catch (IOException e) {
-            System.err.println("Error setting default keyboard: " + e.getMessage());
-            e.printStackTrace();
+            // Locate the OTP input field
+            By otpField3 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[4]/android.widget.TextView\n");
+            WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(otpField3));
+
+            // Wait for 30 seconds before clicking the input field
+            System.out.println("Waiting for 30 seconds before clicking...");
+            Thread.sleep(30);
+
+            // Click to activate the OTP input field
+            firstDigitElement.click();
+            System.out.println("Clicked on OTP field to activate it.");
+
+            // Wait for another 30 seconds after clicking
+            System.out.println("Waiting for 30 seconds after clicking...");
+            Thread.sleep(30);
+
+            // Option 1: Type digit '1' using mobile automation input script
+            ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "3"));
+            System.out.println("Successfully entered digit '3' using native input.");
+
+            // Option 2: Tap on '1' key directly (if it’s part of the on-screen keyboard)
+            // Example coordinates, replace with actual values you captured (e.g., from Appium Inspector)
+            int x = 409; // Replace with actual X coordinate of the '1' key
+            int y = 894; // Replace with actual Y coordinate of the '1' key
+            tapOnKeyboardKey(x, y);
+
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            throw new Exception("Failed to enter the digit '2'.", e);
+        }
+    }
+    public void EnterlastDigit() throws Exception {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+            // Locate the OTP input field
+            By otpField4 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[5]/android.widget.TextView\n");
+            WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(otpField4));
+
+            // Wait for 30 seconds before clicking the input field
+            System.out.println("Waiting for 30 seconds before clicking...");
+            Thread.sleep(30);
+
+            // Click to activate the OTP input field
+            firstDigitElement.click();
+            System.out.println("Clicked on OTP field to activate it.");
+
+            // Wait for another 30 seconds after clicking
+            System.out.println("Waiting for 30 seconds after clicking...");
+            Thread.sleep(30);
+
+            // Option 1: Type digit '1' using mobile automation input script
+            ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "4"));
+            System.out.println("Successfully entered digit '4' using native input.");
+
+            // Option 2: Tap on '1' key directly (if it’s part of the on-screen keyboard)
+            // Example coordinates, replace with actual values you captured (e.g., from Appium Inspector)
+            int x = 502; // Replace with actual X coordinate of the '1' key
+            int y = 906; // Replace with actual Y coordinate of the '1' key
+            tapOnKeyboardKey(x, y);
+
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            throw new Exception("Failed to enter the digit '4'.", e);
         }
     }
 
-    public String getCurrentIme() throws IOException {
-        // Get the current default input method (keyboard)
-        Process process = Runtime.getRuntime().exec("adb shell settings get secure default_input_method");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        return reader.readLine().trim();
     }
 
 
-
-
-
-
-
-}

@@ -22,12 +22,11 @@
             <class name="io.paysky.qa.App_name.PayQattah.OpenOTPPage"/>
         </classes>
     </test>
-    <test verbose="4" name="PayQattah_summary">
+    <test verbose="5" name="PayQattah_Summary">
         <classes>
             <class name="io.paysky.qa.App_name.PayQattah.PaymentSummaryPage"/>
         </classes>
     </test>
-
 
     <!-- Listeners for Allure -->
     <listeners>

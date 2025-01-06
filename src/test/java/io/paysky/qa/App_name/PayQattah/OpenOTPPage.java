@@ -11,4 +11,21 @@ public class OpenOTPPage
 otpPage.EnterFirstDigit();
 
     }
+    @org.testng.annotations.Test(priority = 2)
+    public void EnterSecondOTPDigit() throws Exception {
+
+        otpPage.EnterSecondDigit();
+
+    }
+    @org.testng.annotations.Test(priority = 3)
+    public void EntertThirdOTPDigit() throws Exception {
+
+        otpPage.EnterThirdDigit();
+
+    }
+    @org.testng.annotations.Test(priority = 4)
+    public void EnterLastOTPDigit() throws Exception {
+
+        otpPage.EnterlastDigit();
+    }
 }
