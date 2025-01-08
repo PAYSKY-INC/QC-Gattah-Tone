@@ -2,6 +2,7 @@ package io.paysky.qa.pages.Filters;
 
 import io.appium.java_client.AppiumBy;
 import io.paysky.qa.pages.AbstractClass;
+import io.paysky.qa.pages.PayQattah.ClickOnSelectReasons;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,7 +11,6 @@ import java.util.*;
 
 public class FilterQattahByDate extends AbstractClass
 {
-
     private final By FilterButton= AppiumBy.xpath("//android.widget.ImageView[@content-desc=\"Circle\"]\n");
     public void ClickOnFilterButton() throws Exception {
         waitForPresenceOf(FilterButton, 30);
@@ -27,101 +27,96 @@ public class FilterQattahByDate extends AbstractClass
         clickOnElement(ClickOnOkCalender,20);
     }
     public void GetAllYears() throws Exception {
-        // Locator to find the year elements
         By yearLocator = By.className("android.widget.TextView");
+        Set<String> allYears = new HashSet<>(); // To store unique years
+        int maxScrollAttempts = 10; // Limit scroll attempts
+        int scrollAttempts = 0;
 
-        Set<String> allYears = new HashSet<>(); // To store unique years and avoid duplicates
-
-        while (true) {
+        while (scrollAttempts < maxScrollAttempts) {
             try {
+                // Scroll first before looking for the years
+              ClickOnSelectReasons.swipeWithinPopup();
+                Thread.sleep(20); // Add some wait to ensure elements load after scroll
+
                 // Fetch fresh references to year elements
                 List<WebElement> years = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(yearLocator));
                 System.out.println("Fetched " + years.size() + " years after scrolling");
 
-                // Add the text of each year to the set (prevents duplicates)
+                // Add unique years to the set
                 for (WebElement year : years) {
                     String yearText = year.getText();
-                    if (!yearText.equals("SAF") && !yearText.equals("1") && !yearText.equals("Monday")) {
+                    if (yearText.matches("\\d{4}")) { // Ensure it's a valid year
                         allYears.add(yearText);
                         System.out.println("Year found: " + yearText);
                     }
                 }
 
-                // Log unique years found so far
-                System.out.println("Total unique years so far: " + allYears.size());
-
-                // Select and click a year if available
-                if (!years.isEmpty()) {
+                if (!allYears.isEmpty()) {
+                    // Randomly select a year from the set
+                    List<String> yearList = new ArrayList<>(allYears);
                     Random rand = new Random();
-                    String selectedYearText = years.get(rand.nextInt(years.size())).getText();
-                    System.out.println("Randomly selected year: " + selectedYearText);
+                    String selectedYear = yearList.get(rand.nextInt(yearList.size()));
+                    System.out.println("Randomly selected year: " + selectedYear);
 
                     // Re-fetch elements and find the matching year again to avoid stale references
                     List<WebElement> refreshedYears = driver.findElements(yearLocator);
                     WebElement selectedYearElement = refreshedYears.stream()
-                            .filter(e -> e.getText().equals(selectedYearText))
+                            .filter(e -> e.getText().equals(selectedYear))
                             .findFirst()
                             .orElseThrow(() -> new Exception("Selected year not found after refresh"));
 
+                    // Ensure the year element is clickable
                     wait.until(ExpectedConditions.elementToBeClickable(selectedYearElement)).click();
-                    System.out.println("Clicked on the year: " + selectedYearText);
+                    System.out.println("Clicked on the year: " + selectedYear);
 
-                    // Call function to handle days for this year
+                    // Handle days for the selected year
                     clickOnRandomDayAfterYear();
-                    break; // Exit after successfully selecting a year and day
+                    return; // Exit after successfully selecting a year and day
                 }
-            } catch (org.openqa.selenium.StaleElementReferenceException e) {
-                System.out.println("StaleElementReferenceException: Re-fetching elements...");
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
+                System.out.println("Exception during year selection: " + e.getMessage());
             }
 
-            // Scroll to load more years
-            scrollDown(2);
-            Thread.sleep(1000); // Allow time for new elements to load
+            // Log the scroll attempt and increment the scroll counter
+            System.out.println("Scroll attempt " + (scrollAttempts + 1) + " of " + maxScrollAttempts);
+
+            // Scroll and increment attempt counter
+            scrollAttempts++;
         }
 
-        // Print all unique years found
-        System.out.println("Total unique years: " + allYears.size());
-        for (String year : allYears) {
-            System.out.println("Year: " + year);
-        }
+        System.out.println("Failed to find or select a year after " + maxScrollAttempts + " attempts.");
     }
-    // Function to click a random day after selecting a year
+
     public void clickOnRandomDayAfterYear() throws InterruptedException {
         By dayLocator = By.className("android.widget.TextView");
 
         try {
-            // Wait for the day elements to become visible
+            // Perform the scroll action first to bring more days into view
+           ClickOnSelectReasons.swipeWithinPopup();
+            Thread.sleep(40);  // Wait for the UI to settle after scrolling
+
+            // Fetch fresh references to day elements after scrolling
             List<WebElement> days = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dayLocator));
             System.out.println("Total days found: " + days.size());
 
             if (!days.isEmpty()) {
                 Random rand = new Random();
-                String selectedDayText = days.get(rand.nextInt(days.size())).getText();
-                System.out.println("Randomly selected day: " + selectedDayText);
+                WebElement selectedDay = days.get(rand.nextInt(days.size()));  // Randomly select a day
+                String dayText = selectedDay.getText();
 
-                // Re-fetch the list to ensure elements are fresh
-                List<WebElement> refreshedDays = driver.findElements(dayLocator);
-                WebElement selectedDayElement = refreshedDays.stream()
-                        .filter(e -> e.getText().equals(selectedDayText))
-                        .findFirst()
-                        .orElseThrow(() -> new Exception("Selected day not found after refresh"));
+                System.out.println("Randomly selected day: " + dayText);
 
-                wait.until(ExpectedConditions.elementToBeClickable(selectedDayElement)).click();
-                System.out.println("Clicked on the day: " + selectedDayText);
+                // Ensure the day element is clickable
+                wait.until(ExpectedConditions.elementToBeClickable(selectedDay)).click();
+                System.out.println("Clicked on the day: " + dayText);
             } else {
                 System.out.println("No days found to click.");
             }
-        } catch (org.openqa.selenium.StaleElementReferenceException e) {
-            System.out.println("StaleElementReferenceException: Retrying day selection...");
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            System.out.println("Exception during day selection: " + e.getMessage());
         }
-
-        // Optional delay to allow the UI to settle
-        Thread.sleep(1000);
     }
+
 }
 
 

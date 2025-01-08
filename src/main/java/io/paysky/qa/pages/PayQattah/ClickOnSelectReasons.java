@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class ClickOnSelectReasons extends AbstractClass {
     public void OpenReasonsFirstDropdownList() throws Exception {
         clickOnElement(SelectFirstReasons, 20);
     }
+
     public void selectFirstRandomReasonByClass() {
         try {
             // Maximum scroll attempts to find an element
@@ -38,32 +40,43 @@ public class ClickOnSelectReasons extends AbstractClass {
                 if (!reasons.isEmpty()) {
                     System.out.println("Found " + reasons.size() + " reasons to select from.");
 
-                    // Select a random element
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(reasons.size());
-                    WebElement randomReason = reasons.get(randomIndex);
+                    // Ensure there are more than one reason (exclude last reason)
+                    if (reasons.size() > 1) {
+                        Random random = new Random();
 
-                    // Retrieve and log its attributes
-                    String reasonText = randomReason.getAttribute("text");
-                    System.out.println("Attempting to select reason with text: " +
-                            (reasonText != null ? reasonText : "Unknown"));
+                        // Create a sublist excluding the last item from the original list
+                        List<WebElement> validReasons = new ArrayList<>(reasons.subList(0, reasons.size() - 1));
 
-                    try {
-                        // Wait until the element is clickable
-                        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-                        WebElement visibleElement = wait.until(ExpectedConditions.elementToBeClickable(randomReason));
+                        // Select a random index from the sublist
+                        int randomIndex = random.nextInt(validReasons.size()); // Random index from 0 to size-2
 
-                        if (visibleElement.isDisplayed() && visibleElement.isEnabled()) {
-                            visibleElement.click();  // Click on the selected reason
-                            System.out.println("Successfully selected the reason: " +
-                                    (reasonText != null ? reasonText : "Unknown"));
-                            return;  // Exit loop if successfully clicked
-                        } else {
-                            System.err.println("Element is not clickable or interactable.");
+                        // Select the random reason from the validReasons sublist
+                        WebElement randomReason = validReasons.get(randomIndex);
+
+                        // Retrieve and log its attributes
+                        String reasonText = randomReason.getAttribute("text");
+                        System.out.println("Attempting to select reason with text: " +
+                                (reasonText != null ? reasonText : "Unknown"));
+
+                        try {
+                            // Wait until the element is clickable
+                            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
+                            WebElement visibleElement = wait.until(ExpectedConditions.elementToBeClickable(randomReason));
+
+                            if (visibleElement.isDisplayed() && visibleElement.isEnabled()) {
+                                visibleElement.click();  // Click on the selected reason
+                                System.out.println("Successfully selected the reason: " +
+                                        (reasonText != null ? reasonText : "Unknown"));
+                                return;  // Exit loop if successfully clicked
+                            } else {
+                                System.err.println("Element is not clickable or interactable.");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("Failed to interact with reason. Scrolling...");
+                            e.printStackTrace();  // Print the stack trace for better debugging
                         }
-                    } catch (Exception e) {
-                        System.err.println("Failed to interact with reason. Scrolling...");
-                        e.printStackTrace();  // Print the stack trace for better debugging
+                    } else {
+                        System.out.println("No valid reasons to select (only the last reason).");
                     }
                 } else {
                     System.out.println("No reasons found. Scrolling to retry...");
@@ -82,7 +95,8 @@ public class ClickOnSelectReasons extends AbstractClass {
             e.printStackTrace();  // Print the stack trace for better debugging
         }
     }
-    public void swipeWithinPopup() {
+
+    public static void swipeWithinPopup() {
         try {
             // Get screen dimensions
             Dimension screenSize = driver.manage().window().getSize();
@@ -128,7 +142,7 @@ public class ClickOnSelectReasons extends AbstractClass {
     private final By SelectSecondReasons = AppiumBy.xpath("//android.widget.TextView[@text=\"-- Select reason --\"]\n");
 
     public void OpenReasonsSecondDropdownList() throws Exception {
-        clickOnElement(SelectSecondReasons, 20);
+        clickOnElement(SelectSecondReasons, 40);
     }
     public void selectSecondRandomReasonByClass() {
         try {
@@ -160,7 +174,7 @@ public class ClickOnSelectReasons extends AbstractClass {
 
                     try {
                         // Wait until the element is clickable
-                        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(90));
                         WebElement visibleElement = wait.until(ExpectedConditions.elementToBeClickable(randomReason));
 
                         if (visibleElement.isDisplayed() && visibleElement.isEnabled()) {

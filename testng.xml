@@ -27,6 +27,21 @@
             <class name="io.paysky.qa.App_name.PayQattah.PaymentSummaryPage"/>
         </classes>
     </test>
+    <test verbose="6" name="filters_icon">
+        <classes>
+            <class name="io.paysky.qa.App_name.Filters.ClickOnFilterIcon"/>
+        </classes>
+    </test>
+    <test verbose="7" name="filters_type">
+        <classes>
+            <class name="io.paysky.qa.App_name.Filters.FilterQattahByDate"/>
+        </classes>
+    </test>
+    <test verbose="8" name="filters_Apply">
+        <classes>
+            <class name="io.paysky.qa.App_name.Filters.ClickOnApplyFilter"/>
+        </classes>
+    </test>
 
     <!-- Listeners for Allure -->
     <listeners>
