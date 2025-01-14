@@ -1,6 +1,6 @@
 package io.paysky.qa.pages.PayQattah;
 import com.google.common.collect.ImmutableMap;
-import io.paysky.qa.pages.AbstractClass;
+import io.paysky.qa.pages.CreateQattah.AbstractClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -11,8 +11,7 @@ public class OTPPage extends AbstractClass {
 
         // Method to enter the first digit of the OTP
         public void EnterFirstDigit() throws Exception {
-            try {
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
                 // Locate the OTP input field
                 By otpFieldXPath = By.xpath("(//android.widget.FrameLayout[@resource-id='com.paysky.qattah:id/otpView'])[2]/android.widget.TextView");
@@ -21,19 +20,12 @@ public class OTPPage extends AbstractClass {
 
                 // Click to activate the OTP input field
                 firstDigitElement.click();
-                System.out.println("Clicked on OTP field to activate it.");
                 // Option 1: Type digit '1' using mobile automation input script
                 ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "1"));
-                System.out.println("Successfully entered digit '1' using native input.");
 
-            } catch (Exception e) {
-                System.err.println("Error: " + e.getMessage());
-                throw new Exception("Failed to enter the digit '1'.", e);
-            }
         }
     public void EnterSecondDigit() throws Exception {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             // Locate the OTP input field
             By otpField2 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[3]/android.widget.TextView\n");
@@ -41,40 +33,23 @@ public class OTPPage extends AbstractClass {
 
             // Click to activate the OTP input field
             firstDigitElement.click();
-            System.out.println("Clicked on OTP field to activate it.");
-
             // Option 1: Type digit '1' using mobile automation input script
             ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "2"));
-            System.out.println("Successfully entered digit '2' using native input.");
-
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-            throw new Exception("Failed to enter the digit '2'.", e);
-        }
     }
     public void EnterThirdDigit() throws Exception {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             // Locate the OTP input field
             By otpField3 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[4]/android.widget.TextView\n");
             WebElement firstDigitElement = wait.until(ExpectedConditions.presenceOfElementLocated(otpField3));
             // Click to activate the OTP input field
             firstDigitElement.click();
-            System.out.println("Clicked on OTP field to activate it.");
             // Option 1: Type digit '1' using mobile automation input script
             ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "3"));
-            System.out.println("Successfully entered digit '3' using native input.");
 
-
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-            throw new Exception("Failed to enter the digit '2'.", e);
-        }
     }
     public void EnterlastDigit() throws Exception {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             // Locate the OTP input field
             By otpField4 = By.xpath("(//android.widget.FrameLayout[@resource-id=\"com.paysky.qattah:id/otpView\"])[5]/android.widget.TextView\n");
@@ -82,15 +57,9 @@ public class OTPPage extends AbstractClass {
 
             // Click to activate the OTP input field
             firstDigitElement.click();
-            System.out.println("Clicked on OTP field to activate it.");
             // Option 1: Type digit '1' using mobile automation input script
             ((JavascriptExecutor) driver).executeScript("mobile: type", ImmutableMap.of("text", "4"));
-            System.out.println("Successfully entered digit '4' using native input.");
 
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-            throw new Exception("Failed to enter the digit '4'.", e);
-        }
     }
 
     }

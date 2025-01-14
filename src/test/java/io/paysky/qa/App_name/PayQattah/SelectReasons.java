@@ -27,7 +27,6 @@ public class SelectReasons
     }
     @org.testng.annotations.Test(priority = 5)
     public void ClickOnNextButton() throws Exception {
-
         clickOnSelectReasons.ClickOnNextButton();
     }
 }

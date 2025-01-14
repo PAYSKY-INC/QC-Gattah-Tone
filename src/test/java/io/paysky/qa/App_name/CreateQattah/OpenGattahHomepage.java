@@ -1,5 +1,5 @@
-package io.paysky.qa.App_name;
-import io.paysky.qa.pages.OnboardingPage;
+package io.paysky.qa.App_name.CreateQattah;
+import io.paysky.qa.pages.CreateQattah.OnboardingPage;
 
 public class OpenGattahHomepage {
 
@@ -8,10 +8,6 @@ public class OpenGattahHomepage {
     @org.testng.annotations.Test(priority = 2)
     final  void NewQattah() throws  Exception{
         onboardingPage.ClickOnNewQattah();
-    }
-    @org.testng.annotations.Test(priority = 3)
-    final  void QattahTypeDivided() throws  Exception{
-        onboardingPage.ClickOnQattahTypeDivided();
     }
 
 }

@@ -1,4 +1,4 @@
-package io.paysky.qa.pages;
+package io.paysky.qa.pages.CreateQattah;
 
 import io.appium.java_client.AppiumBy;
 import io.paysky.qa.utilities.appium.AndroidBaseTest;

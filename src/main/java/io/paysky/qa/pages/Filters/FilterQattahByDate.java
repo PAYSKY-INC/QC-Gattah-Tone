@@ -1,12 +1,14 @@
 package io.paysky.qa.pages.Filters;
 
 import io.appium.java_client.AppiumBy;
-import io.paysky.qa.pages.AbstractClass;
+import io.paysky.qa.pages.CreateQattah.AbstractClass;
 import io.paysky.qa.pages.PayQattah.ClickOnSelectReasons;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.*;
 
 public class FilterQattahByDate extends AbstractClass
@@ -36,7 +38,7 @@ public class FilterQattahByDate extends AbstractClass
             try {
                 // Scroll first before looking for the years
               ClickOnSelectReasons.swipeWithinPopup();
-                Thread.sleep(20); // Add some wait to ensure elements load after scroll
+                Thread.sleep(30); // Add some wait to ensure elements load after scroll
 
                 // Fetch fresh references to year elements
                 List<WebElement> years = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(yearLocator));
@@ -64,11 +66,10 @@ public class FilterQattahByDate extends AbstractClass
                             .filter(e -> e.getText().equals(selectedYear))
                             .findFirst()
                             .orElseThrow(() -> new Exception("Selected year not found after refresh"));
+                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
                     // Ensure the year element is clickable
                     wait.until(ExpectedConditions.elementToBeClickable(selectedYearElement)).click();
-                    System.out.println("Clicked on the year: " + selectedYear);
-
                     // Handle days for the selected year
                     clickOnRandomDayAfterYear();
                     return; // Exit after successfully selecting a year and day
@@ -76,15 +77,7 @@ public class FilterQattahByDate extends AbstractClass
             } catch (Exception e) {
                 System.out.println("Exception during year selection: " + e.getMessage());
             }
-
-            // Log the scroll attempt and increment the scroll counter
-            System.out.println("Scroll attempt " + (scrollAttempts + 1) + " of " + maxScrollAttempts);
-
-            // Scroll and increment attempt counter
-            scrollAttempts++;
         }
-
-        System.out.println("Failed to find or select a year after " + maxScrollAttempts + " attempts.");
     }
 
     public void clickOnRandomDayAfterYear() throws InterruptedException {
@@ -93,7 +86,7 @@ public class FilterQattahByDate extends AbstractClass
         try {
             // Perform the scroll action first to bring more days into view
            ClickOnSelectReasons.swipeWithinPopup();
-            Thread.sleep(40);  // Wait for the UI to settle after scrolling
+            Thread.sleep(20);  // Wait for the UI to settle after scrolling
 
             // Fetch fresh references to day elements after scrolling
             List<WebElement> days = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dayLocator));

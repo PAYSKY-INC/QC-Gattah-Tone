@@ -1,7 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ParallelTestSuite" parallel="false" thread-count="1">
+<suite name="TestSceanrio" parallel="false" thread-count="1">
 
-    <!-- Step 1: Run OpenPayQattahPage class sequentially -->
     <test verbose="1" name="PayQattah">
         <classes>
             <class name="io.paysky.qa.App_name.PayQattah.OpenPayQattahPage"/>
@@ -13,10 +12,10 @@
         </classes>
     </test>
     <test verbose="3" name="PayQattah_Done">
-    <classes>
-        <class name="io.paysky.qa.App_name.PayQattah.OpenCheckOutPage"/>
-    </classes>
-</test>
+        <classes>
+            <class name="io.paysky.qa.App_name.PayQattah.OpenCheckOutPage"/>
+        </classes>
+    </test>
     <test verbose="4" name="PayQattah_OTP">
         <classes>
             <class name="io.paysky.qa.App_name.PayQattah.OpenOTPPage"/>
@@ -42,6 +41,8 @@
             <class name="io.paysky.qa.App_name.Filters.ClickOnApplyFilter"/>
         </classes>
     </test>
+
+
 
     <!-- Listeners for Allure -->
     <listeners>

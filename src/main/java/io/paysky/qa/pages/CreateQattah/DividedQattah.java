@@ -1,4 +1,4 @@
-package io.paysky.qa.pages;
+package io.paysky.qa.pages.CreateQattah;
 
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
@@ -8,6 +8,10 @@ import java.util.Random;
 
 public class DividedQattah extends AbstractClass
 {
+    private final By QattahTypeDivided = AppiumBy.xpath("//android.widget.TextView[@text=\"Divided Qattah\"]\n");
+    public void ClickOnQattahTypeDivided() throws Exception{
+        clickOnElement(QattahTypeDivided,20);
+    }
     private final By Amount = AppiumBy.xpath("//android.widget.EditText[contains(@text, \".00\")]");
     public void EnterAmount() throws Exception {
         Random random = new Random();

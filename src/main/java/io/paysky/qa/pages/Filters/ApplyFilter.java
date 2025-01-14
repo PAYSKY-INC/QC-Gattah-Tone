@@ -1,16 +1,8 @@
 package io.paysky.qa.pages.Filters;
 
 import io.appium.java_client.AppiumBy;
-import io.paysky.qa.pages.AbstractClass;
+import io.paysky.qa.pages.CreateQattah.AbstractClass;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-import java.util.Arrays;
 
 public class ApplyFilter extends AbstractClass
 {
