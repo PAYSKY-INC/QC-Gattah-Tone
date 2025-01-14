@@ -1,6 +1,5 @@
 package io.paysky.qa.utilities.sharedComponent;
 
-import io.paysky.qa.pages.*;
 import io.paysky.qa.utilities.DataFaker;
 import io.paysky.qa.utilities.testdata.Constant;
 

@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -70,44 +69,40 @@ public class ClickOnSelectReasons extends AbstractClass {
         // Perform the swipe action
         driver.perform(Arrays.asList(swipe));
     }
-    private final By SelectSecondReasons = AppiumBy.xpath("//android.widget.TextView[@text=\"-- Select reason --\"]");
-    private final By NextButton = AppiumBy.xpath("//android.widget.TextView[@text=\"Next\"]");
-    WebElement nextButton = driver.findElement(NextButton);
+    final By NextButton = AppiumBy.xpath("//android.widget.TextView[@text=\"Next\"]\n");
 
     public void OpenReasonsSecondDropdownList() throws Exception {
         // Locate the NextButton
+         By SelectSecondReasons2 = AppiumBy.xpath("//android.widget.TextView[@text=\"-- Select reason --\"]");
+        WebElement nextButton = driver.findElement(NextButton);
 
         // Wait until the NextButton is visible
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(nextButton));
-
-        // Check if NextButton is displayed
-        boolean isButtonDisplayed = nextButton.isDisplayed();
-        // If the button is not displayed, we cannot interact with it
-        if (!isButtonDisplayed) {
-            return;
-        }
-
         // Check if the NextButton is enabled (active)
-        if (!nextButton.isEnabled()) {
+        boolean next= nextButton.isEnabled();
+        if (next != true) {
             return; // Exit the method as the button is enabled
         }
-        // Wait for the dropdown element to be visible and clickable
-        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(SelectSecondReasons));
+        else{
+            // Wait for the dropdown element to be visible and clickable
+            WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(SelectSecondReasons2));
 
-        // Click the dropdown to open the list
-        dropdown.click();
+            // Click the dropdown to open the list
+            dropdown.click();
+        }
+
     }
 
 
 
     public void selectSecondRandomReasonByClass() {
+        WebElement nextButton = driver.findElement(NextButton);
 
-        if (!nextButton.isEnabled()) {
+      if (nextButton.isEnabled()) {
             // Exit the method if the "Next" button is enabled
             return;
         }
-
         // Perform a single swipe to bring items into view
         swipeWithinPopup();
 

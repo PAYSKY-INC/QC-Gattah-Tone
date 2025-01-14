@@ -1,6 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSceanrio" parallel="false" thread-count="1">
-
     <test verbose="1" name="PayQattah">
         <classes>
             <class name="io.paysky.qa.App_name.PayQattah.OpenPayQattahPage"/>
@@ -41,6 +40,7 @@
             <class name="io.paysky.qa.App_name.Filters.ClickOnApplyFilter"/>
         </classes>
     </test>
+
 
 
 
